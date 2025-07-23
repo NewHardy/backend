@@ -2,31 +2,40 @@ package com.example.FirstSpringBoot.entity;
 
 import jakarta.persistence.*;
 
-import java.util.ArrayList;
 
 @Entity
-@Table(name = "Pokemons")
+@Table(name = "User")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String image;
-    private String name;
-    private ArrayList<String> types;
-    private String evoFrom;
+    private String username;
+    private String email;
+    private String password;
 
     public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
 
-    public String getImage() { return image; }
-    public void setImage(String image) { this.image = image; }
+    public String getUsername() {
+        return username;
+    }
 
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-    public ArrayList<String> getTypes() { return types; }
-    public void setTypes(ArrayList<String> types) { this.types = types; }
+    public String getEmail() {
+        return email;
+    }
 
-    public String getEvoFrom() { return evoFrom; }
-    public void setEvoFrom(String evoFrom) { this.evoFrom = evoFrom; }
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }
