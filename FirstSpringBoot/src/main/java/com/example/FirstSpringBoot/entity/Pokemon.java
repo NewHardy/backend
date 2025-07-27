@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 import java.util.ArrayList;
 
 @Entity
-@Table(name = "Pokemon")
 public class Pokemon {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
