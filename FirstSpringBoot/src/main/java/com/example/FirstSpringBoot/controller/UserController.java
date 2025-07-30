@@ -5,9 +5,7 @@ import com.example.FirstSpringBoot.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URISyntaxException;
 import java.util.List;
-import java.util.Optional;
 
 
 @RestController
@@ -26,7 +24,7 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<User> create(@RequestBody User user) throws URISyntaxException {
+    public ResponseEntity<User> create(@RequestBody User user){
         return service.create(user);
     }
 
@@ -36,7 +34,7 @@ public class UserController {
     }
 
     @GetMapping("/{index}")
-    public Optional<User> getById(@PathVariable Long index)
+    public ResponseEntity<Object> getById(@PathVariable Long index)
     {
         return service.getUserById(index);
     }

@@ -1,13 +1,13 @@
 package com.example.FirstSpringBoot.service;
 
-import com.example.FirstSpringBoot.repository.PokemonRepository;
 import com.example.FirstSpringBoot.entity.Pokemon;
+import com.example.FirstSpringBoot.repository.PokemonRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import java.net.URI;
-import java.net.URISyntaxException;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,8 +15,7 @@ import java.util.Optional;
 public class PokemonService
 {
     private final PokemonRepository repo;
-
-    public PokemonService (PokemonRepository repo)
+    public PokemonService(PokemonRepository repo)
     {
         this.repo=repo;
     }
@@ -26,10 +25,9 @@ public class PokemonService
         return repo.findAll();
     }
 
-    public ResponseEntity<Pokemon> create (@RequestBody Pokemon pokemon) throws URISyntaxException {
-        URI uri = new URI("localhost:8080/users");
-        repo.save(pokemon);
-        return ResponseEntity.created(uri).build();
+    public ResponseEntity<Pokemon> create (@RequestBody Pokemon pokemon){
+        Pokemon createdPokemon = repo.save(pokemon);
+        return new ResponseEntity<>(createdPokemon, HttpStatus.CREATED);
     }
     public ResponseEntity<Void> delete (Long index)
     {
@@ -40,12 +38,17 @@ public class PokemonService
         }
         return ResponseEntity.notFound().build();
     }
-    public Optional<Pokemon> getPokemonById(Long id)
+    public ResponseEntity<Object> getPokemonById(Long id)
     {
-        return repo.findById(id);
+        Optional<Pokemon> pokemon = repo.findById(id);
+        if (pokemon.isPresent())
+        {
+            return new ResponseEntity<>(pokemon.get(), HttpStatus.OK);
+        }
+        return new ResponseEntity<>(Collections.emptyMap(),HttpStatus.NOT_FOUND);
     }
 
-    public ResponseEntity<Void> deleteAll ()
+    public ResponseEntity<Void> deleteAll()
     {
         repo.deleteAll();
         return ResponseEntity.noContent().build();

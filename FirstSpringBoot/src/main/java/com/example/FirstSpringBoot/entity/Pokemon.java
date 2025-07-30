@@ -7,7 +7,6 @@ import java.util.ArrayList;
 @Entity
 public class Pokemon {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String image;
     private String name;
