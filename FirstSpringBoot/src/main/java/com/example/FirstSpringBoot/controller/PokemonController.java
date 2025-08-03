@@ -37,6 +37,11 @@ public class PokemonController {
     {
         return service.getPokemonById(index);
     }
+    @GetMapping("/{offset}/")
+    public ResponseEntity<Object> getFromOffset(@PathVariable Long offset)
+    {
+        return service.getFromOffset(offset);
+    }
 
     @DeleteMapping
     public ResponseEntity<Void> deleteAll()

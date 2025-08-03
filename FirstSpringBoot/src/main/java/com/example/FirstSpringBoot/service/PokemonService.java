@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -46,6 +47,16 @@ public class PokemonService
             return new ResponseEntity<>(pokemon.get(), HttpStatus.OK);
         }
         return new ResponseEntity<>(Collections.emptyMap(),HttpStatus.NOT_FOUND);
+    }
+
+    public ResponseEntity<Object> getFromOffset(Long offset)
+    {
+        // TODO: make function to get only 21 pokemons from offset
+        ArrayList<Pokemon> pokemonList= new ArrayList<>();
+        for (int i = 1; i <= 21; i++) {
+            pokemonList.add((Pokemon) getPokemonById(offset+i).getBody());
+        }
+        return new ResponseEntity<>(pokemonList, HttpStatus.OK);
     }
 
     public ResponseEntity<Void> deleteAll()
