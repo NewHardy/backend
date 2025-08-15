@@ -23,7 +23,7 @@ public class PokemonService
 
     public List<Pokemon> getAll()
     {
-        return repo.findAll();
+            return repo.findAll();
     }
 
     public ResponseEntity<Pokemon> create (@RequestBody Pokemon pokemon){
@@ -49,14 +49,27 @@ public class PokemonService
         return new ResponseEntity<>(Collections.emptyMap(),HttpStatus.NOT_FOUND);
     }
 
-    public ResponseEntity<Object> getFromOffset(Long offset)
+    public ResponseEntity<Object> getFromOffset(int offset)
     {
-        // TODO: make function to get only 21 pokemons from offset
-        ArrayList<Pokemon> pokemonList= new ArrayList<>();
-        for (int i = 1; i <= 21; i++) {
-            pokemonList.add((Pokemon) getPokemonById(offset+i).getBody());
+        int id;
+        ArrayList<Pokemon> pokemonList= (ArrayList<Pokemon>) getAll();
+        ArrayList<Pokemon> selectedPokemon= new ArrayList<>();
+        for (int i = 0; i < 21; i++) {
+            id=i+offset;
+            if (id>=pokemonList.size())
+            {
+                break;
+            }
+            else
+            {
+                selectedPokemon.add(pokemonList.get(id));
+            }
         }
-        return new ResponseEntity<>(pokemonList, HttpStatus.OK);
+        return new ResponseEntity<>(selectedPokemon, HttpStatus.OK);
+    }
+    public ResponseEntity<Integer> getSize()
+    {
+        return new ResponseEntity<>(repo.findAll().size(), HttpStatus.OK );
     }
 
     public ResponseEntity<Void> deleteAll()

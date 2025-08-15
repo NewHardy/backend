@@ -31,14 +31,13 @@ public class PokemonController {
     public ResponseEntity<Void> delete (@PathVariable Long index) {
         return service.delete(index);
     }
-
-    @GetMapping("/{index}")
-    public ResponseEntity<Object> getById(@PathVariable Long index)
+    @GetMapping("/size")
+    public ResponseEntity<Integer> getSize()
     {
-        return service.getPokemonById(index);
+        return service.getSize();
     }
     @GetMapping("/{offset}/")
-    public ResponseEntity<Object> getFromOffset(@PathVariable Long offset)
+    public ResponseEntity<Object> getFromOffset(@PathVariable int offset)
     {
         return service.getFromOffset(offset);
     }
